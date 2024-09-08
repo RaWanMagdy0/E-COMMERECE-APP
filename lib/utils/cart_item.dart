@@ -12,8 +12,7 @@ class CartItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.only(top: 24.h, bottom: 24.h, right: 16.w, left: 16.w),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
@@ -46,14 +45,18 @@ class CartItem extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          productEntity.product?.title ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color: AppColors.primaryColor,
-                                  fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            productEntity.product?.title ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: AppColors.primaryColor,
+                                    fontWeight: FontWeight.bold,),
+                          ),
                         ),
                         InkWell(
                           onTap: () {

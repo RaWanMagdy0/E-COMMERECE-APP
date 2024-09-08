@@ -4,6 +4,7 @@ class MyAssets {
   static const Announcement3 = "assets/images/Property 1=Variant3.png";
   static const splashScreen = "assets/images/Splash Screen.png";
   static const logo = "assets/images/logo.png";
+  static const rout = "assets/images/rout.png";
   static const dress = "assets/images/dress.png";
   static const tshirt = "assets/images/tshirt.png";
   static const menFashion = "assets/images/menFashion.png";

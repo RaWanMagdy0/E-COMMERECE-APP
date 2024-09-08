@@ -2,11 +2,14 @@ import 'package:e_comerence_app/data/di.dart';
 import 'package:e_comerence_app/ui/auth/register/cubit/register_screen_view_model.dart';
 import 'package:e_comerence_app/ui/auth/register/cubit/register_states.dart';
 import 'package:e_comerence_app/utils/dialog_utils.dart';
+import 'package:e_comerence_app/utils/my_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/my_color.dart';
+import '../../../utils/shared_preference_utils.dart';
 import '../../../utils/text_field_item.dart';
+import '../../home/home_screen/home_screen_view.dart';
 import '../../tabs/home_tab/home_tab.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -27,21 +30,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (context, state) {
           if (state is RegisterLoadingState) {
             DialogUtils.showLoading(
-                context, state.loadingMessage ?? "Waitting..");
+                context, state.loadingMessage ?? "Waiting..");
           } else if (state is RegisterErrorState) {
             DialogUtils.hideLoading(context);
-            DialogUtils.showMessage(context, state.errorMessage!,
+            DialogUtils.showMessage(context, state.errorMessage.toString(),
                 title: 'Error', posActionName: 'OK');
           } else if (state is RegisterSuccessState) {
             DialogUtils.hideLoading(context);
             DialogUtils.showMessage(
                 context, state.response.userEntity?.name ?? "",
                 title: 'Success', posActionName: 'OK');
+
           }
         },
         child: Scaffold(
           body: Container(
-            color: Theme.of(context).primaryColor,
+            color: AppColors.mainColor,
             height: double.infinity,
             child: SingleChildScrollView(
               child: Column(
@@ -49,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Padding(
                     padding: EdgeInsets.only(
                         top: 91.h, bottom: 46.h, left: 97.w, right: 97.w),
-                    child: Image.asset("assets/images/logo.png"),
+                    child: Image.asset(MyAssets.rout),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -168,8 +172,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ]),
                           ),
                         ),
+                        SizedBox(height: 10.h,),
                         Padding(
-                          padding: EdgeInsets.only(top: 35.h),
+                          padding: const EdgeInsets.only(bottom: 15),
                           child: ElevatedButton(
                               onPressed: () {
                                 viewModel.register();
@@ -187,7 +192,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   child: InkWell(
                                     onTap: () {
                                       Navigator.pushNamedAndRemoveUntil(context,
-                                          HomeTab.routeName, (route) => false);
+                                          HomeScreenView.routeName, (route) => false);
                                       initState();
                                     },
                                     child: Text(

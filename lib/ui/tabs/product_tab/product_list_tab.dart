@@ -11,7 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../data/di.dart';
 import '../../../utils/custom_text_field.dart';
 
-class ProducLlistTab extends StatelessWidget {
+class ProductListTab extends StatelessWidget {
   ProductListViewModel viewModel = ProductListViewModel(
       getAllProductsUseCase: injectGetAllProductsUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),

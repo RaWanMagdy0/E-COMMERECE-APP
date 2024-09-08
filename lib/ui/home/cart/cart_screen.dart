@@ -6,6 +6,7 @@ import '../../../data/di.dart';
 import '../../../utils/cart_item.dart';
 import '../../../utils/my_assets.dart';
 import '../../../utils/my_color.dart';
+import '../../tabs/product_tab/cubit/product_list_view_model.dart';
 import 'cubit/cart_screen_states.dart';
 import 'cubit/cart_screen_view_model.dart';
 
@@ -15,7 +16,12 @@ class CartScreen extends StatelessWidget {
     getCartUseCase: injectGetCartUseCase(),
     deleteItemInCartUseCase: injectDeleteItemInCartUseCase(),
     updateCountInCartUseCase: injectUpdateCountInCartUseCase(),
+
   );
+  ProductListViewModel viewModdel = ProductListViewModel(
+      getAllProductsUseCase: injectGetAllProductsUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+      addToWishListUseCase: injectAddToWishListUseCase());
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +45,16 @@ class CartScreen extends StatelessWidget {
               actions: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(Icons.search),
+                  icon: Icon(Icons.search,size: 35,color: AppColors.mainColor,),
                 ),
-                Material(
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(CartScreen.routeName);
-                    },
+                //SizedBox(width: 20.w,),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Badge(
+                    label: Text(viewModdel.numOfCartItems.toString()),
                     child: ImageIcon(
                       AssetImage(MyAssets.shoppingCartIcon),
-                      size: 28.sp,
+                      size: 40.sp,
                       color: AppColors.primaryColor,
                     ),
                   ),
@@ -77,19 +83,23 @@ class CartScreen extends StatelessWidget {
                           children: [
                             Column(
                               children: [
+                                Text("Total Price",style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColors.greyColor
+                                )),
                                 Padding(
                                     padding: EdgeInsets.only(
                                       bottom: 12.h,
                                     ),
                                     child: Text(
                                       'EGP ${state.cartResponseEntity.data?.totalCartPrice ?? 0}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                              color: AppColors.primaryColor,
-                                              fontWeight: FontWeight.bold),
-                                    ))
+                                        style: TextStyle(
+                                            fontSize: 18.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.darkPrimaryColor
+                                        )
+                                    )),
                               ],
                             ),
                             InkWell(
@@ -99,7 +109,7 @@ class CartScreen extends StatelessWidget {
                                 width: 270.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.r),
-                                  color: Theme.of(context).primaryColor,
+                                  color:AppColors.primaryColor,
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.only(
@@ -114,9 +124,11 @@ class CartScreen extends StatelessWidget {
                                         padding: EdgeInsets.only(left: 83.w),
                                         child: Text(
                                           'Check Out',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white
+                                          )
                                         ),
                                       ),
                                       Padding(

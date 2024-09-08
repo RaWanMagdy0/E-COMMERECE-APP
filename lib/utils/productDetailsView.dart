@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
+import '../data/di.dart';
 import '../domain/entities/ProductResponseEntity.dart';
 import '../ui/home/cart/cart_screen.dart';
+import '../ui/tabs/product_tab/cubit/product_list_view_model.dart';
 import 'my_color.dart';
 
 class ProductDetailsView extends StatelessWidget {
   static const String routName = 'ProductDetailsView';
+  ProductListViewModel viewModdel = ProductListViewModel(
+      getAllProductsUseCase: injectGetAllProductsUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+      addToWishListUseCase: injectAddToWishListUseCase());
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class ProductDetailsView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         foregroundColor: AppColors.primaryColor,
         titleTextStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-              fontSize: 20.sp,
+              fontSize: 25.sp,
               fontWeight: FontWeight.bold,
               color: AppColors.darkPrimaryColor,
             ),
@@ -30,17 +36,23 @@ class ProductDetailsView extends StatelessWidget {
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {},
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.search,size: 30,),
           ),
           Material(
             child: InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed(CartScreen.routeName);
               },
-              child: ImageIcon(
-                AssetImage(MyAssets.shoppingCartIcon),
-                size: 28.sp,
-                color: AppColors.primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Badge(
+                  label: Text(viewModdel.numOfCartItems.toString()),
+                  child: ImageIcon(
+                    AssetImage(MyAssets.shoppingCartIcon),
+                    size: 40.sp,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
               ),
             ),
           )

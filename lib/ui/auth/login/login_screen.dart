@@ -1,4 +1,6 @@
+import 'package:e_comerence_app/main.dart';
 import 'package:e_comerence_app/ui/home/home_screen/home_screen_view.dart';
+import 'package:e_comerence_app/utils/my_assets.dart';
 import 'package:e_comerence_app/utils/shared_preference_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,6 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
           DialogUtils.showLoading(
               context, state.loadingMessage ?? "Waiting...");
         } else if (state is LoginErrorState) {
+          print('Login error: ${state.errorMessage}'); // Debug print
           DialogUtils.hideLoading(context);
           DialogUtils.showMessage(context, state.errorMessage!,
               title: 'Error', posActionName: "ok");
@@ -45,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
           body: Container(
-        color: Theme.of(context).primaryColor,
+        color: AppColors.mainColor,
         height: double.infinity,
         child: SingleChildScrollView(
           child: Column(
@@ -53,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: EdgeInsets.only(
                     top: 91.h, bottom: 87.h, left: 97.w, right: 97.w),
-                child: Image.asset("assets/images/logo.png"),
+                child: Image.asset(MyAssets.rout),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -133,53 +136,64 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              Text(
-                'Forgot password',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(color: AppColors.whiteColor),
-                textAlign: TextAlign.end,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Text(
+                      'Forgot password',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(color: AppColors.whiteColor),
+                      textAlign: TextAlign.end,
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.only(top: 35.h),
-                child: ElevatedButton(
-                    onPressed: () {
-                      // viewModel.login();
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.whiteColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15.r)),
-                        )),
-                    child: SizedBox(
-                      height: 64.h,
-                      width: 398.w,
-                      child: Center(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushNamedAndRemoveUntil(context,
-                                HomeScreenView.routeName, (route) => false);
-                          },
-                          child: Text(
-                            'Login',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                    color: AppColors.primaryColor,
-                                    fontSize: 20.sp),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                         viewModel.login();
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.whiteColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                          )),
+                      child: SizedBox(
+                        height: 64.h,
+                        width: 398.w,
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushNamedAndRemoveUntil(context,
+                                  HomeScreenView.routeName, (route) => false);
+                            },
+                            child: Text(
+                              'Login',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge!
+                                  .copyWith(
+                                      color: AppColors.primaryColor,
+                                      fontSize: 20.sp),
+                            ),
                           ),
                         ),
-                      ),
-                    )),
+                      )),
+                ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 30.h),
+                padding: EdgeInsets.only(top: 30.h,left: 15.w),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Dont have an account?',
+                    Text("Don't have an account ?" ,
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium!
@@ -193,8 +207,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             ));
                       },
                       child: Text(
-                        'Create Account',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        ' Create Account',
+                        style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                          color: Colors.white,
+
+                        ),
                       ),
                     )
                   ],

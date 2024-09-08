@@ -8,7 +8,6 @@ import 'package:e_comerence_app/data/model/response/AddToCartResponseDto.dart';
 import 'package:e_comerence_app/data/model/response/AddToWishListResponseDto.dart';
 import 'package:e_comerence_app/data/model/response/CategoryOrBrandResponseDto.dart';
 import 'package:e_comerence_app/data/model/response/GetCartResponseDto.dart';
-import 'package:e_comerence_app/data/model/response/GetMenCategoryResponseDto.dart';
 import 'package:e_comerence_app/data/model/response/GetWishListResponseDto.dart';
 import 'package:e_comerence_app/data/model/response/ProductResponseDto.dart';
 import 'package:e_comerence_app/utils/shared_preference_utils.dart';
@@ -52,12 +51,12 @@ class ApiManager {
         return Right(registerResponse);
       } else {
         return Left(Failures(
-            errorMessage: registerResponse.error!.msg!,
-            code: registerResponse.hashCode));
+            errorMessage: registerResponse.error?.msg,
+           ));
       }
     } else {
       return Left(
-          Failures(errorMessage: 'Check Internet Connection', code: hashCode));
+          Failures(errorMessage: 'Check Internet Connection', ));
     }
   }
 
@@ -78,11 +77,11 @@ class ApiManager {
         return Right(loginResponse);
       } else {
         return Left(Failures(
-            errorMessage: loginResponse.message, code: loginResponse.hashCode));
+            errorMessage: loginResponse.message, ));
       }
     } else {
       return Left(
-          Failures(errorMessage: 'Check Internet Connection', code: hashCode));
+          Failures(errorMessage: 'Check Internet Connection', ));
     }
   }
 
@@ -101,11 +100,11 @@ class ApiManager {
       } else {
         return Left(ServerError(
             errorMessage: categoryResponse.message,
-            code: categoryResponse.hashCode));
+           ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection', ));
     }
   }
 
@@ -122,11 +121,11 @@ class ApiManager {
         return Right(brandResponse);
       } else {
         return Left(ServerError(
-            errorMessage: brandResponse.message, code: brandResponse.hashCode));
+            errorMessage: brandResponse.message,));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection',));
     }
   }
 
@@ -144,11 +143,11 @@ class ApiManager {
       } else {
         return Left(ServerError(
             errorMessage: productResponse.message,
-            code: productResponse.hashCode));
+           ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection',));
     }
   }
 
@@ -170,15 +169,15 @@ class ApiManager {
       } else if (response.statusCode == 401) {
         return Left(Failures(
             errorMessage: deleteItemInCartResponse.message,
-            code: deleteItemInCartResponse.hashCode));
+            ));
       } else {
         return Left(ServerError(
             errorMessage: deleteItemInCartResponse.message,
-            code: deleteItemInCartResponse.hashCode));
+            ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection', ));
     }
   }
 
@@ -200,15 +199,15 @@ class ApiManager {
       } else if (response.statusCode == 401) {
         return Left(Failures(
             errorMessage: updateCountInCartResponse.message,
-            code: updateCountInCartResponse.hashCode));
+            ));
       } else {
         return Left(ServerError(
             errorMessage: updateCountInCartResponse.message,
-            code: updateCountInCartResponse.hashCode));
+           ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection',));
     }
   }
 
@@ -222,7 +221,6 @@ class ApiManager {
       Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToCartApi);
       var response = await http.post(url,
           body: {'productId': productId}, headers: {'token': token.toString()});
-      //  print("response status:${response.statusCode}");
       //  print("response body:${response.body}");
       var addToCartResponse =
           AddToCartResponseDto.fromJson(jsonDecode(response.body));
@@ -232,15 +230,15 @@ class ApiManager {
       } else if (response.statusCode == 401) {
         return Left(Failures(
             errorMessage: addToCartResponse.message,
-            code: addToCartResponse.hashCode));
+            ));
       } else {
         return Left(ServerError(
             errorMessage: addToCartResponse.message,
-            code: addToCartResponse.hashCode));
+            ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection', ));
     }
   }
 
@@ -261,15 +259,15 @@ class ApiManager {
       } else if (response.statusCode == 401) {
         return Left(Failures(
             errorMessage: addToWishListResponse.message,
-            code: addToWishListResponse.hashCode));
+            ));
       } else {
         return Left(ServerError(
             errorMessage: addToWishListResponse.message,
-            code: addToWishListResponse.hashCode));
+            ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection',));
     }
   }
 
@@ -288,15 +286,15 @@ class ApiManager {
       } else if (response.statusCode == 401) {
         return Left(Failures(
             errorMessage: getCartResponse.message,
-            code: getCartResponse.hashCode));
+            ));
       } else {
         return Left(ServerError(
             errorMessage: getCartResponse.message,
-            code: getCartResponse.hashCode));
+            ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection',));
     }
   }
 
@@ -315,37 +313,16 @@ class ApiManager {
       } else if (response.statusCode == 401) {
         return Left(Failures(
             errorMessage: getWishListResponse.message,
-            code: getWishListResponse.hashCode));
+            ));
       } else {
         return Left(ServerError(
             errorMessage: getWishListResponse.message,
-            code: getWishListResponse.hashCode));
+            ));
       }
     } else {
       return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
+          errorMessage: 'Check Internet Connection', ));
     }
   }
 
-  Future<Either<Failures, GetMenCategoryResponseDto>> getMensCategory() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getMenCategoryApi);
-      var response = await http.get(url);
-      var menCategoryResponse =
-          GetMenCategoryResponseDto.fromJson(jsonDecode(response.body));
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        //success
-        return Right(menCategoryResponse);
-      } else {
-        return Left(ServerError(
-            errorMessage: menCategoryResponse.message,
-            code: menCategoryResponse.hashCode));
-      }
-    } else {
-      return Left(NetworkError(
-          errorMessage: 'Check Internet Connection', code: hashCode));
-    }
-  }
 }

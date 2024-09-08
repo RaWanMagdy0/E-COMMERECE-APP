@@ -1,19 +1,18 @@
 class Failures {
   String? errorMessage;
-  int? code;
 
-  Failures({required this.errorMessage, required this.code});
+  Failures({required this.errorMessage,});
 
   @override
   String toString() {
-    return "Failures(errorMessage: $errorMessage, code: $code)";
+    return "Failures(errorMessage: $errorMessage, )";
   }
 }
 
 class ServerError extends Failures {
-  ServerError({required super.errorMessage, required super.code});
+  ServerError({required super.errorMessage, });
 }
 
 class NetworkError extends Failures {
-  NetworkError({required super.errorMessage, required super.code});
+  NetworkError({required super.errorMessage,});
 }

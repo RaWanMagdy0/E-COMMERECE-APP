@@ -13,7 +13,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   Future<Either<Failures, GetCartResponseEntity>> getCart() async {
     var either = await apiManager.getCart();
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, code: hashCode));
+      return Left(Failures(errorMessage: error.errorMessage, ));
     }, (response) {
       return Right(response);
     });
@@ -24,7 +24,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
       String productId) async {
     var either = await apiManager.deleteItemInCart(productId);
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, code: hashCode));
+      return Left(Failures(errorMessage: error.errorMessage,));
     }, (response) {
       return Right(response);
     });
@@ -35,7 +35,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
       String productId, int count) async {
     var either = await apiManager.updateCountInCart(productId, count);
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, code: hashCode));
+      return Left(Failures(errorMessage: error.errorMessage, ));
     }, (response) {
       return Right(response);
     });

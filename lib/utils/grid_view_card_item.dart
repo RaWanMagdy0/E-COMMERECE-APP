@@ -105,7 +105,7 @@ class GridViewCardItem extends StatelessWidget {
               SizedBox(
                 width: 10.w,
               ),
-              //Spacer(flex: 1),
+              const Spacer(flex: 1),
               InkWell(
                 onTap: () {
                   ProductListViewModel.get(context)

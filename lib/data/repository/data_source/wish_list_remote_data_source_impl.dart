@@ -16,7 +16,7 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
   Future<Either<Failures, GetWishListResponseEntity>> getWishList() async {
     var either = await apiManager.getWishList();
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, code: hashCode));
+      return Left(Failures(errorMessage: error.errorMessage,));
     }, (response) {
       return Right(response);
     });

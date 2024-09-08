@@ -117,7 +117,7 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                                         Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                            BorderRadius.circular(12),
                                             color: selectedIndex == index
                                                 ? AppColors.primaryColor
                                                 : Colors.transparent,
@@ -134,9 +134,9 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                                             style: TextStyle(
                                                 color: AppColors.primaryColor,
                                                 fontWeight:
-                                                    selectedIndex == index
-                                                        ? FontWeight.bold
-                                                        : FontWeight.normal),
+                                                selectedIndex == index
+                                                    ? FontWeight.bold
+                                                    : FontWeight.normal),
                                           ),
                                         ),
                                       ])),
@@ -146,82 +146,82 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                       ],
                     ),
                     SizedBox(width: 10.w),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 300),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 70),
-                  child: Text(
-                    selectedIndex == 0
-                        ? "Men's Fashion"
-                        : "Women's Fashion",
-                    style: TextStyle(
-                        color: AppColors.primaryColor,
-                        fontSize: 20.sp),
-                  ),
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                Image.asset(selectedIndex == 0
-                    ? MyAssets.menFashion
-                    : MyAssets.womenFashion),
-                SizedBox(height: 20.h),
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 2.h,
-                    crossAxisSpacing: 2.w,
-                  ),
-                  itemCount: womenItem.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          flex: 8,
-                          child: Image.asset(
-                            selectedIndex == 0
-                                ? MyAssets.tshirt
-                                : MyAssets.dress,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 8.h,
-                        ),
-                        Expanded(
-                            flex: 2,
-                            child: Text(
-                              selectedIndex == 0
-                                  ? menItem[index]
-                                  : womenItem[index],
-                              textWidthBasis:
-                              TextWidthBasis.longestLine,
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                fontSize: 12.sp,
-                                color:
-                                AppColors.darkPrimaryColor,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 300),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 70),
+                              child: Text(
+                                selectedIndex == 0
+                                    ? "Men's Fashion"
+                                    : "Women's Fashion",
+                                style: TextStyle(
+                                    color: AppColors.primaryColor,
+                                    fontSize: 20.sp),
                               ),
-                            )),
-                      ],
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-        )
+                            ),
+                            SizedBox(
+                              height: 12.h,
+                            ),
+                            Image.asset(selectedIndex == 0
+                                ? MyAssets.menFashion
+                                : MyAssets.womenFashion),
+                            SizedBox(height: 20.h),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 2.h,
+                                crossAxisSpacing: 2.w,
+                              ),
+                              itemCount: womenItem.length,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      flex: 8,
+                                      child: Image.asset(
+                                        selectedIndex == 0
+                                            ? MyAssets.tshirt
+                                            : MyAssets.dress,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 8.h,
+                                    ),
+                                    Expanded(
+                                        flex: 2,
+                                        child: Text(
+                                          selectedIndex == 0
+                                              ? menItem[index]
+                                              : womenItem[index],
+                                          textWidthBasis:
+                                          TextWidthBasis.longestLine,
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleMedium!
+                                              .copyWith(
+                                            fontSize: 12.sp,
+                                            color:
+                                            AppColors.darkPrimaryColor,
+                                          ),
+                                        )),
+                                  ],
+                                );
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                    )
                   ],
                 )
               ],
@@ -230,5 +230,4 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
         ),
       ),
     );
-  }
-}
+  }}

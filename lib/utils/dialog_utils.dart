@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'my_color.dart';
 
 class DialogUtils {
-  static void showLoading(BuildContext context, String message) {
+  static void showLoading(BuildContext context, String message,
+      {String title = '', String posActionName = 'OK'}) {
     showDialog(
         barrierDismissible: false,
         context: context,
-        builder: (context) {
+        builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: AppColors.primaryColor,
             content: Row(
@@ -41,9 +42,28 @@ class DialogUtils {
       actions.add(TextButton(
           onPressed: () {
             Navigator.pop(context);
+            if (posAction != null) posAction();
           },
-          child:
-              CircularProgressIndicator())); ///////////////////////////////////////////////
+          child: Text(posActionName),));
     }
+    if (negActionName != null) {
+      actions.add(TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+          if (negAction != null) negAction();
+        },
+        child: Text(negActionName),
+      ));
+    }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: actions,
+          );
+        });
   }
 }

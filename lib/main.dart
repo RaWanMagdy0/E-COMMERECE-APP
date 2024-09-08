@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            initialRoute: HomeScreenView.routeName,
+            initialRoute: route,
             routes: {
               RegisterScreen.routName: (context) => RegisterScreen(),
               SplashScreen.routName: (context) => SplashScreen(),

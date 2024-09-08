@@ -12,7 +12,7 @@ class HomeScreenViewModel extends Cubit<HomeScreenStates> {
   int selectedIndex = 0;
   List<Widget> tabs = [
     HomeTab(),
-    ProducLlistTab(),
+    ProductListTab(),
     WishListScreen(),
     ProfileScreen(),
   ];

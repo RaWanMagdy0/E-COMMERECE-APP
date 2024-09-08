@@ -9,11 +9,17 @@ import '../../../utils/my_assets.dart';
 import '../../../utils/my_color.dart';
 import '../../../utils/wish_list_item.dart';
 import '../../home/cart/cart_screen.dart';
+import '../product_tab/cubit/product_list_view_model.dart';
 
 class WishListScreen extends StatelessWidget {
   static const String routeName = 'WishListScreen';
+
   WishListScreenViewModel viewModel =
       WishListScreenViewModel(getWishListUseCase: injectGetWishListUseCase());
+  ProductListViewModel viewModdel = ProductListViewModel(
+      getAllProductsUseCase: injectGetAllProductsUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+      addToWishListUseCase: injectAddToWishListUseCase());
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +55,13 @@ class WishListScreen extends StatelessWidget {
                               Navigator.of(context)
                                   .pushNamed(CartScreen.routeName);
                             },
-                            child: ImageIcon(
-                              AssetImage(MyAssets.shoppingCartIcon),
-                              size: 28.sp,
-                              color: AppColors.primaryColor,
+                            child: Badge(
+                              label: Text(viewModdel.numOfCartItems.toString(),),
+                              child: ImageIcon(
+                                AssetImage(MyAssets.shoppingCartIcon),
+                                size: 28.sp,
+                                color: AppColors.primaryColor,
+                              ),
                             ),
                           ),
                         )

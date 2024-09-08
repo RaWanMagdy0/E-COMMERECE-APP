@@ -13,7 +13,7 @@ class LoginUseCase {
       String email, String password) async {
     var either = await repositoryContract.login(email, password);
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, code: hashCode));
+      return Left(Failures(errorMessage: error.errorMessage, ));
     }, (response) {
       return Right(response);
     });

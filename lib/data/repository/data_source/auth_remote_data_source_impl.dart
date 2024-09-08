@@ -16,7 +16,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         await apiManager.register(name, email, password, rePassword, phone);
     return either.fold((error) {
       return Left(
-          Failures(errorMessage: error.errorMessage, code: error.hashCode));
+          Failures(errorMessage: error.errorMessage, ));
     }, (response) {
       return Right(response.toAuthResultEntity());
     });
@@ -27,7 +27,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       String email, String password) async {
     var either = await apiManager.login(password, email);
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, code: hashCode));
+      return Left(Failures(errorMessage: error.errorMessage, ));
     }, (response) {
       return Right(response.toAuthResultEntity());
     });
