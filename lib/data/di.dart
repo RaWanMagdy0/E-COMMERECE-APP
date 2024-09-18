@@ -1,25 +1,20 @@
 import 'package:e_comerence_app/data/repository/data_source/auth_remote_data_source_impl.dart';
 import 'package:e_comerence_app/data/repository/data_source/cart_remote_data_source_impl.dart';
 import 'package:e_comerence_app/data/repository/data_source/home_remote_data_source_Impl.dart';
-import 'package:e_comerence_app/data/repository/data_source/specific_subcategory_remote_data_source_impl.dart';
 import 'package:e_comerence_app/data/repository/data_source/wish_list_remote_data_source_impl.dart';
 import 'package:e_comerence_app/data/repository/repository/auth_repository_impl.dart';
 import 'package:e_comerence_app/data/repository/repository/cart_repository_impl.dart';
 import 'package:e_comerence_app/data/repository/repository/home_repository_impl.dart';
-import 'package:e_comerence_app/data/repository/repository/specific_subcategory_repository_impl.dart';
 import 'package:e_comerence_app/data/repository/repository/wish_list_repository_impl.dart';
 import 'package:e_comerence_app/domain/repository/data_sources/auth_remot_data_source.dart';
 import 'package:e_comerence_app/domain/repository/data_sources/cart_remote_data_source.dart';
-import 'package:e_comerence_app/domain/repository/data_sources/get_Specific_Sub_Category_remote_data_source.dart';
 import 'package:e_comerence_app/domain/repository/data_sources/home_remote_data_source.dart';
 import 'package:e_comerence_app/domain/repository/repository/cart_repository_contract.dart';
-import 'package:e_comerence_app/domain/repository/repository/getSpecificSubCategoryRepositryContract.dart';
 import 'package:e_comerence_app/domain/repository/repository/home_repository_contract.dart';
 import 'package:e_comerence_app/domain/use_cases/addToCartUseCase.dart';
 import 'package:e_comerence_app/domain/use_cases/delete_item_from_wish_list_use_case.dart';
 import 'package:e_comerence_app/domain/use_cases/get_all_categories_use_case.dart';
 import 'package:e_comerence_app/domain/use_cases/get_cart_use_case.dart';
-import 'package:e_comerence_app/domain/use_cases/get_specific_subcategory_use_case.dart';
 import 'package:e_comerence_app/domain/use_cases/login_use_case.dart';
 import 'package:e_comerence_app/domain/use_cases/register_use_case.dart';
 import '../domain/repository/data_sources/wish_list_remote_data_source.dart';
@@ -119,13 +114,4 @@ WishListRepositoryContract injectWishListRepositoryContract() {
 
 WishListRemoteDataSource injectWishListRemoteDataSource() {
   return WishListRemoteDataSourceImpl(apiManager: ApiManager.getInstance());
-}
-GetSpecificSubCategoryUseCase injectGetSpecificSubCategoryUseCase(){
-  return GetSpecificSubCategoryUseCase(repositoryContract:injectGetSpecificSubCategoryRepositoryContract());
-}
-GetSpecificSubCategoryRepositoryContract injectGetSpecificSubCategoryRepositoryContract(){
-  return GetSpecificSubCategoryRepositoryImpl(remoteDataSource: injectGetSpecificSubCategoryRemoteDataSource());
-}
-GetSpecificSubCategoryRemoteDataSource injectGetSpecificSubCategoryRemoteDataSource(){
-  return GetSpecificSubCategoryDataSourceImpl(apiManager: ApiManager.getInstance());
 }

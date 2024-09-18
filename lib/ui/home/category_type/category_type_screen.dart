@@ -1,20 +1,13 @@
-import 'package:e_comerence_app/data/di.dart';
-import 'package:e_comerence_app/domain/entities/GetSpecificSubCategoryEntitydart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../utils/custom_text_field.dart';
 import '../../../../../utils/my_assets.dart';
 import '../../../../../utils/my_color.dart';
 import '../cart/cart_screen.dart';
-import 'cubit/category_type_states.dart';
-import 'cubit/category_type_view_model.dart';
 
 class CategoriesTypeScreen extends StatefulWidget {
   static const String routeName = "CategoriesTypeScreen";
-  CategoryTypeViewModel viewModel=CategoryTypeViewModel(
-      getSpecificSubCategoryUseCase: injectGetSpecificSubCategoryUseCase()
-  );
+
   @override
   State<CategoriesTypeScreen> createState() => _CategoriesTypeScreenState();
 }
@@ -23,8 +16,16 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
   int selectedIndex = 1;
 
   // say women
-   List<DataSpecificSubCategoryEntity> categoryList = [];
-
+  List<String> menuItem = [
+    "Men’s Fashion",
+    "Women’s Fashion",
+    "Skincare",
+    "Beauty",
+    "Headphones",
+    "T-Cameras",
+    "Baby & Toys",
+    "Laptops &Electronics",
+  ];
   List<String> womenItem = [
     "dresses",
     "jeans",
@@ -49,9 +50,6 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
-      bloc: widget.viewModel..getSpecificSubCategory(),
-      builder: (context,state){
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -94,7 +92,6 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                     ),
                     Row(
                       children: [
-                        state is  SpecificSupCategorySuccessStates ?
                         Column(
                           children: [
                             Container(
@@ -102,7 +99,7 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                               width: 137.w,
                               height: 724.h,
                               child: ListView.builder(
-                                  itemCount:categoryList.isNotEmpty? widget.viewModel.CategoryList.length:0,
+                                  itemCount:menuItem.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
@@ -132,7 +129,7 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                categoryList[index].name??'',
+                                                menuItem[index],
                                                 style: TextStyle(
                                                     color: AppColors.primaryColor,
                                                     fontWeight:
@@ -146,12 +143,7 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
                                   }),
                             ),
                           ],
-                        ):
-                            Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
+                        ),
                         SizedBox(width: 10.w),
                         Expanded(
                           child: Padding(
@@ -237,6 +229,4 @@ class _CategoriesTypeScreenState extends State<CategoriesTypeScreen> {
             ),
           ),
         );
-      },
-    );
   }}

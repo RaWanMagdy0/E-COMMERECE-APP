@@ -14,7 +14,6 @@ import 'package:e_comerence_app/utils/shared_preference_utils.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/requiest/LoginRequest.dart';
-import '../model/response/GetSpecificSubCategoryDto.dart';
 import '../model/response/LoginResponse.dart';
 import '../model/response/RegisterResponseDto.dart';
 
@@ -352,34 +351,6 @@ class ApiManager {
     } else {
       return Left(NetworkError(
           errorMessage: 'Check Internet Connection', ));
-    }
-  }
-  Future<Either<Failures, GetSpecificSubCategoryDto>> getSpecificSubCategory() async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      var token = SharedPreferenceUtils.getData("Token");
-      Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getSpecificSubCategoryApi);
-      var response = await http.get(url, headers: {'token': token.toString()});
-      var getSpecificSubCategoryResponse =
-      GetSpecificSubCategoryDto.fromJson(jsonDecode(response.body));
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        //success
-        var responseBody = response.body;
-        print('Response Body: $responseBody');
-        return Right(getSpecificSubCategoryResponse);
-      } else if (response.statusCode == 401) {
-        return Left(Failures(
-          errorMessage: getSpecificSubCategoryResponse.message,
-        ));
-      } else {
-        return Left(ServerError(
-          errorMessage: getSpecificSubCategoryResponse.message,
-        ));
-      }
-    } else {
-      return Left(NetworkError(
-        errorMessage: 'Check Internet Connection',));
     }
   }
 }
