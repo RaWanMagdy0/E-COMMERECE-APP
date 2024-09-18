@@ -31,7 +31,7 @@ class DataResponseEntity {
     this.v,
   });
 
-  int? sold;
+  dynamic sold;
   List<String>? images;
   List<SubcategoryResponseEntity>? subcategory;
   int? ratingsQuantity;

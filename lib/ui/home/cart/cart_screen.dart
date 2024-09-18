@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,10 +17,6 @@ class CartScreen extends StatelessWidget {
     updateCountInCartUseCase: injectUpdateCountInCartUseCase(),
 
   );
-  ProductListViewModel viewModdel = ProductListViewModel(
-      getAllProductsUseCase: injectGetAllProductsUseCase(),
-      addToCartUseCase: injectAddToCartUseCase(),
-      addToWishListUseCase: injectAddToWishListUseCase());
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +42,12 @@ class CartScreen extends StatelessWidget {
                   onPressed: () {},
                   icon: Icon(Icons.search,size: 35,color: AppColors.mainColor,),
                 ),
-                //SizedBox(width: 20.w,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Badge(
-                    label: Text(viewModdel.numOfCartItems.toString()),
-                    child: ImageIcon(
-                      AssetImage(MyAssets.shoppingCartIcon),
-                      size: 40.sp,
-                      color: AppColors.primaryColor,
-                    ),
+                  child: ImageIcon(
+                    AssetImage(MyAssets.shoppingCartIcon),
+                    size: 40.sp,
+                    color: AppColors.primaryColor,
                   ),
                 )
               ],
@@ -77,23 +68,23 @@ class CartScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                            bottom: 98.h, left: 16.w, right: 16.w),
+                            bottom: 80.h, left: 16.w, right: 16.w),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               children: [
                                 Text("Total Price",style: TextStyle(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.greyColor
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.greyColor
                                 )),
                                 Padding(
                                     padding: EdgeInsets.only(
                                       bottom: 12.h,
                                     ),
                                     child: Text(
-                                      'EGP ${state.cartResponseEntity.data?.totalCartPrice ?? 0}',
+                                        'EGP ${state.cartResponseEntity.data?.totalCartPrice ?? 0}',
                                         style: TextStyle(
                                             fontSize: 18.sp,
                                             fontWeight: FontWeight.w500,
@@ -118,17 +109,17 @@ class CartScreen extends StatelessWidget {
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Padding(
                                         padding: EdgeInsets.only(left: 83.w),
                                         child: Text(
-                                          'Check Out',
-                                          style: TextStyle(
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.white
-                                          )
+                                            'Check Out',
+                                            style: TextStyle(
+                                                fontSize: 20.sp,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white
+                                            )
                                         ),
                                       ),
                                       Padding(

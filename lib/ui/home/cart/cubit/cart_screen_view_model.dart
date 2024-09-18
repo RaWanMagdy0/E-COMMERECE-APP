@@ -1,14 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../domain/entities/GetCartResponseEntity.dart';
-import '../../../../domain/use_cases/delete_item_use_case.dart';
+import '../../../../domain/use_cases/delete_item_form_cart_use_case.dart';
 import '../../../../domain/use_cases/get_cart_use_case.dart';
 import '../../../../domain/use_cases/update_count_in_cart_use_case.dart';
 import 'cart_screen_states.dart';
 
 class CartScreenViewModel extends Cubit<CartScreenStates> {
   GetCartUseCase getCartUseCase;
-  DeleteItemInCartUseCase deleteItemInCartUseCase;
+  DeleteItemFromCartUseCase deleteItemInCartUseCase;
   UpdateCountInCartUseCase updateCountInCartUseCase;
 
   CartScreenViewModel(

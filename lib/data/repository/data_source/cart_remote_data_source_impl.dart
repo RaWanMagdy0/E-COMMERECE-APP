@@ -35,7 +35,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
       String productId, int count) async {
     var either = await apiManager.updateCountInCart(productId, count);
     return either.fold((error) {
-      return Left(Failures(errorMessage: error.errorMessage, ));
+      return Left(Failures(errorMessage: error.errorMessage ));
     }, (response) {
       return Right(response);
     });

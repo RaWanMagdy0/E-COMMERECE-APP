@@ -21,4 +21,15 @@ class WishListRemoteDataSourceImpl implements WishListRemoteDataSource {
       return Right(response);
     });
   }
+
+  @override
+  Future<Either<Failures, GetWishListResponseEntity>> deleteItemInWishList(String productId) async{
+   var either=await apiManager.deleteItemInWishList(productId);
+    return either.fold(
+            (error) {
+             return Left(Failures(errorMessage: error.errorMessage));
+        }, (response) {
+              return Right(response);
+    });
+  }
 }

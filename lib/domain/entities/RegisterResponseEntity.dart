@@ -1,7 +1,7 @@
 import '../../data/model/response/UserDto.dart';
 
-class RegisterResponseDto {
-  RegisterResponseDto({
+class RegisterResponseEntity {
+  RegisterResponseEntity({
     this.message,
     this.user,
     this.error,

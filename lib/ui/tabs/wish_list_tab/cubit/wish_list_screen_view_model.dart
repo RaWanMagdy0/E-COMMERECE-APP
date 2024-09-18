@@ -1,3 +1,4 @@
+import 'package:e_comerence_app/domain/use_cases/delete_item_from_wish_list_use_case.dart';
 import 'package:e_comerence_app/ui/tabs/wish_list_tab/cubit/wish_list_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,9 +8,13 @@ import '../../../../domain/use_cases/get_wish_list_use_case.dart';
 class WishListScreenViewModel extends Cubit<WishListStates> {
   GetWishListUseCase getWishListUseCase;
   List<DataResponseEntity> wishList = [];
+  DeleteItemFromWishListUseCase deleteItemInWishListUseCase;
 
-  WishListScreenViewModel({required this.getWishListUseCase})
+  WishListScreenViewModel(
+      {required this.getWishListUseCase,
+      required this.deleteItemInWishListUseCase})
       : super(WishListInitialStates());
+
 
   getWishList() async {
     emit(WishListLoadingStates(loadingMessage: "Loading..."));
@@ -25,4 +30,14 @@ class WishListScreenViewModel extends Cubit<WishListStates> {
   }
 
   static WishListScreenViewModel get(context) => BlocProvider.of(context);
+
+  deleteItemInWishList(String productId) async {
+    emit(DeleteItemInWishListLoadingStates(loadingMessage: 'Loading...'));
+    var either = await deleteItemInWishListUseCase.invoke(productId);
+    either.fold((l) {
+      emit(DeleteItemInWishListErrorStates(errorMessage: l));
+    }, (response) {
+      emit(WishListSuccessStates(wishListResponseEntity: response));
+    });
+  }
 }

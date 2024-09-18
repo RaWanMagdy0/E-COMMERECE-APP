@@ -12,7 +12,6 @@ class MyAssets {
   static const starIcon = "assets/images/starIcon.png";
   static const favIcon = "assets/images/favIcon.png";
   static const selectedFavIcon = "assets/images/selectedFavIcon.png";
-  static const selectedWishListIcon = "assets/images/selectedWishListIcon.png";
   static const selectedHomeIcon = "assets/images/selectedHomeIcon.png";
   static const selectedProfileIcon = "assets/images/selectedProfileIcon.png";
   static const selectenCategoryIcon = "assets/images/selectenCategoryIcon.png";
@@ -24,4 +23,6 @@ class MyAssets {
   static const notSelectenCategoryIcon =
       "assets/images/notSelectenCategoryIcon.png";
   static const shoppingCartIcon = "assets/images/shoppingCartIcon.png";
+  static const selectedWishListIcon = "assets/images/selectedWishListIcon.png";
+  static const unSelectedWishListIcon = "assets/images/unSelectedWishListIcon.png";
 }

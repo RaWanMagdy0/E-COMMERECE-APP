@@ -11,10 +11,7 @@ import 'my_color.dart';
 
 class ProductDetailsView extends StatelessWidget {
   static const String routName = 'ProductDetailsView';
-  ProductListViewModel viewModdel = ProductListViewModel(
-      getAllProductsUseCase: injectGetAllProductsUseCase(),
-      addToCartUseCase: injectAddToCartUseCase(),
-      addToWishListUseCase: injectAddToWishListUseCase());
+ late ProductEntity productEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,10 @@ class ProductDetailsView extends StatelessWidget {
           IconButton(
             padding: EdgeInsets.zero,
             onPressed: () {},
-            icon: Icon(Icons.search,size: 30,),
+            icon: Icon(
+              Icons.search,
+              size: 30,
+            ),
           ),
           Material(
             child: InkWell(
@@ -45,13 +45,10 @@ class ProductDetailsView extends StatelessWidget {
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Badge(
-                  label: Text(viewModdel.numOfCartItems.toString()),
-                  child: ImageIcon(
-                    AssetImage(MyAssets.shoppingCartIcon),
-                    size: 40.sp,
-                    color: AppColors.primaryColor,
-                  ),
+                child: ImageIcon(
+                  AssetImage(MyAssets.shoppingCartIcon),
+                  size: 40.sp,
+                  color: AppColors.primaryColor,
                 ),
               ),
             ),
@@ -165,7 +162,9 @@ class ProductDetailsView extends StatelessWidget {
                     children: [
                       IconButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                           icon: Icon(
                             Icons.remove_circle_outline_rounded,
                             color: AppColors.whiteColor,
@@ -180,7 +179,10 @@ class ProductDetailsView extends StatelessWidget {
                       ),
                       IconButton(
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+                            ProductListViewModel.get(context)
+                                .addToCart(productEntity.id ?? "");
+                          },
                           icon: Icon(
                             Icons.add_circle_outline_rounded,
                             color: AppColors.whiteColor,

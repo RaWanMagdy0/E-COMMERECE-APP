@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../utils/announcements_section.dart';
 import '../../../utils/custom_search.dart';
+import '../../../utils/custom_text_field.dart';
+import '../../home/cart/cart_screen.dart';
 import 'cubit/home_tab_view_model.dart';
 
 class HomeTab extends StatefulWidget {
@@ -48,7 +50,29 @@ class _HomeTabState extends State<HomeTab> {
                           SizedBox(
                             height: 18.h,
                           ),
-                          CustomSearch(),
+                    Row(
+                      children: [
+                        const Expanded(
+                          child: CustomTextField(),
+                        ),
+                        SizedBox(
+                          width: 25.w,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(CartScreen.routeName);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ImageIcon(
+                              AssetImage(MyAssets.shoppingCartIcon),
+                              size: 28.sp,
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                           SizedBox(
                             height: 18.h,
                           ),

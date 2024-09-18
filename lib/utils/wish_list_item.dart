@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:e_comerence_app/ui/tabs/wish_list_tab/cubit/wish_list_screen_view_model.dart';
+import 'package:e_comerence_app/utils/my_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../domain/entities/GetWishListResponseEntity.dart';
@@ -6,31 +7,29 @@ import 'my_color.dart';
 
 class WishListItem extends StatelessWidget {
   DataResponseEntity dataResponseEntity;
-
   WishListItem({required this.dataResponseEntity});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.only(top: 24.h, bottom: 24.h, right: 16.w, left: 16.w),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
           border: Border.all(color: AppColors.greyColor, width: 1.w),
         ),
-        width: 398.w,
-        height: 145.h,
+        width: 400.w,
+        height: 180.h,
         child: Row(
           children: [
             Container(
               clipBehavior: Clip.antiAlias,
-              height: 145.h,
+              height: 160.h,
               width: 130.w,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.r),
               ),
-              child: Image.asset(
+              child: Image.network(
                 dataResponseEntity.imageCover.toString(),
                 fit: BoxFit.fill,
               ),
@@ -44,23 +43,26 @@ class WishListItem extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 16.h),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          dataResponseEntity.title ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color: AppColors.primaryColor,
-                                  fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            dataResponseEntity.title ?? '',
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: AppColors.primaryColor,
+                                    fontWeight: FontWeight.bold),
+                          ),
                         ),
                         InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.favorite,
-                            color: AppColors.primaryColor,
-                          ),
+                          onTap: () {
+                            WishListScreenViewModel.get(context)
+                                .deleteItemInWishList(
+                                    dataResponseEntity.id ?? "");
+                          },
+                          child:Image.asset(MyAssets.selectedFavIcon)
                         )
                       ],
                     ),
@@ -73,7 +75,7 @@ class WishListItem extends StatelessWidget {
                           padding: EdgeInsets.only(right: 8.w),
                           child: Icon(
                             Icons.circle,
-                            color: Colors.red,
+                            color: AppColors.primaryColor,
                             size: 15.w,
                           ),
                         ),
@@ -95,18 +97,33 @@ class WishListItem extends StatelessWidget {
                       children: [
                         Text(
                           'EGP ${dataResponseEntity.price}',
-                          style:
-                              Theme.of(context).textTheme.titleMedium!.copyWith(
-                                    color: AppColors.primaryColor,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                color: AppColors.primaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
-                        Container(
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                              color: AppColors.primaryColor,
-                              borderRadius: BorderRadius.circular(100.r)),
-                          child: Text("Add To Cart"),
+                        InkWell(
+                          onTap: () {
+                         //   ProductListViewModel.get(context).addToCart(productEntity.id ?? "");
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: AppColors.primaryColor,
+                                borderRadius: BorderRadius.circular(120.r)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Add To Cart",
+                                style: TextStyle(
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
                         )
                       ],
                     ),

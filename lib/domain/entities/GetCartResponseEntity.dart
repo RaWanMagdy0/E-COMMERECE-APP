@@ -94,7 +94,7 @@ class GetProductCartEntity {
   String? imageCover;
   CategoryOrBrandEntity? category;
   CategoryOrBrandEntity? brand;
-  double? ratingsAverage;
+  dynamic? ratingsAverage;
 }
 
 /// _id : "64089bbe24b25627a253158b"

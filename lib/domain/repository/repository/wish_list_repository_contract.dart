@@ -4,4 +4,5 @@ import 'package:e_comerence_app/domain/entities/GetWishListResponseEntity.dart';
 
 abstract class WishListRepositoryContract {
   Future<Either<Failures, GetWishListResponseEntity>> getWishList();
+  Future<Either<Failures, GetWishListResponseEntity>> deleteItemInWishList(String productId);
 }

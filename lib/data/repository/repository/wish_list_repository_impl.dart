@@ -13,4 +13,9 @@ class WishListRepositoryImpl implements WishListRepositoryContract {
   Future<Either<Failures, GetWishListResponseEntity>> getWishList() {
     return wishListRemoteDataSource.getWishList();
   }
+
+  @override
+  Future<Either<Failures, GetWishListResponseEntity>> deleteItemInWishList(String productId) {
+    return wishListRemoteDataSource.deleteItemInWishList(productId);
+  }
 }

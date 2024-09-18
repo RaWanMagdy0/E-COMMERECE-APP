@@ -14,6 +14,7 @@ import 'package:e_comerence_app/utils/shared_preference_utils.dart';
 import 'package:http/http.dart' as http;
 
 import '../model/requiest/LoginRequest.dart';
+import '../model/response/GetSpecificSubCategoryDto.dart';
 import '../model/response/LoginResponse.dart';
 import '../model/response/RegisterResponseDto.dart';
 
@@ -180,6 +181,35 @@ class ApiManager {
           errorMessage: 'Check Internet Connection', ));
     }
   }
+  Future<Either<Failures, GetWishListResponseDto>> deleteItemInWishList(
+      String productId) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var token = SharedPreferenceUtils.getData("Token");
+      Uri url = Uri.https(
+          ApiConstants.baseUrl, "${ApiConstants.addToWishListApi}/$productId");
+      var response =
+          await http.delete(url, headers: {'token': token.toString()});
+      var deleteItemInWishListResponse =
+          GetWishListResponseDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //success
+        return Right(deleteItemInWishListResponse);
+      } else if (response.statusCode == 401) {
+        return Left(Failures(
+            errorMessage: deleteItemInWishListResponse.message,
+            ));
+      } else {
+        return Left(ServerError(
+            errorMessage: deleteItemInWishListResponse.message,
+            ));
+      }
+    } else {
+      return Left(NetworkError(
+          errorMessage: 'Check Internet Connection', ));
+    }
+  }
 
   Future<Either<Failures, GetCartResponseDto>> updateCountInCart(
       String productId, int count) async {
@@ -324,5 +354,32 @@ class ApiManager {
           errorMessage: 'Check Internet Connection', ));
     }
   }
-
+  Future<Either<Failures, GetSpecificSubCategoryDto>> getSpecificSubCategory() async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      var token = SharedPreferenceUtils.getData("Token");
+      Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getSpecificSubCategoryApi);
+      var response = await http.get(url, headers: {'token': token.toString()});
+      var getSpecificSubCategoryResponse =
+      GetSpecificSubCategoryDto.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        //success
+        var responseBody = response.body;
+        print('Response Body: $responseBody');
+        return Right(getSpecificSubCategoryResponse);
+      } else if (response.statusCode == 401) {
+        return Left(Failures(
+          errorMessage: getSpecificSubCategoryResponse.message,
+        ));
+      } else {
+        return Left(ServerError(
+          errorMessage: getSpecificSubCategoryResponse.message,
+        ));
+      }
+    } else {
+      return Left(NetworkError(
+        errorMessage: 'Check Internet Connection',));
+    }
+  }
 }

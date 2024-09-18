@@ -1,4 +1,3 @@
-import 'package:e_comerence_app/ui/home/cart/cart_screen.dart';
 import 'package:e_comerence_app/ui/tabs/product_tab/cubit/product_list_states.dart';
 import 'package:e_comerence_app/ui/tabs/product_tab/cubit/product_list_view_model.dart';
 import 'package:e_comerence_app/utils/grid_view_card_item.dart';
@@ -9,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../data/di.dart';
+import '../../../utils/custom_search.dart';
 import '../../../utils/custom_text_field.dart';
+import '../../home/cart/cart_screen.dart';
 
 class ProductListTab extends StatelessWidget {
   ProductListViewModel viewModel = ProductListViewModel(
@@ -19,11 +20,11 @@ class ProductListTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<ProductListViewModel>(
       create: (context) => viewModel..getProducts(),
       child: BlocBuilder<ProductListViewModel, ProductListTabStates>(
           builder: (context, state) {
-        return SafeArea(
+            return SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 17.w),
             child: Column(
@@ -37,29 +38,32 @@ class ProductListTab extends StatelessWidget {
                 SizedBox(
                   height: 18.h,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextField(),
-                    ),
-                    SizedBox(
-                      width: 24.w,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(CartScreen.routeName);
-                      },
-                      child: Badge(
-                        label: Text(viewModel.numOfCartItems.toString()),
-                        child: ImageIcon(
-                          AssetImage(MyAssets.shoppingCartIcon),
-                          size: 28.sp,
-                          color: AppColors.primaryColor,
-                        ),
-                      ),
-                    )
-                  ],
+            Row(
+              children: [
+                const Expanded(
+                  child: CustomTextField(),
                 ),
+                SizedBox(
+                  width: 25.w,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(CartScreen.routeName);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Badge(
+                      label: Text(viewModel.numOfCartItems.toString()),
+                      child: ImageIcon(
+                        AssetImage(MyAssets.shoppingCartIcon),
+                        size: 28.sp,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
                 SizedBox(
                   height: 24.h,
                 ),

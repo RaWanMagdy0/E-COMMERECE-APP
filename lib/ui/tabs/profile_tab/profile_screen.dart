@@ -1,16 +1,11 @@
-import 'package:e_comerence_app/main.dart';
 import 'package:e_comerence_app/utils/my_assets.dart';
 import 'package:e_comerence_app/utils/my_color.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../utils/shared_preference_utils.dart';
-import '../../../utils/text_field_item.dart';
 import '../../auth/login/login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

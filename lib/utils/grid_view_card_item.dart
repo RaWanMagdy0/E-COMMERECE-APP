@@ -4,13 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../domain/entities/ProductResponseEntity.dart';
 import '../ui/tabs/product_tab/cubit/product_list_view_model.dart';
+import '../ui/tabs/wish_list_tab/cubit/wish_list_screen_view_model.dart';
 import 'my_color.dart';
 
-class GridViewCardItem extends StatelessWidget {
-  bool isWishListed = false;
+class GridViewCardItem extends StatefulWidget {
   ProductEntity productEntity;
 
   GridViewCardItem({required this.productEntity});
+
+  @override
+  State<GridViewCardItem> createState() => _GridViewCardItemState();
+}
+
+class _GridViewCardItemState extends State<GridViewCardItem> {
+  bool isWishListSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +35,7 @@ class GridViewCardItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
                 child: Image.network(
-                  productEntity.imageCover ?? "",
+                  widget.productEntity.imageCover ?? "",
                   fit: BoxFit.cover,
                   width: 191.w,
                   height: 128.h,
@@ -37,27 +44,23 @@ class GridViewCardItem extends StatelessWidget {
               Positioned(
                   top: 5.h,
                   right: 2.w,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 15,
-                    child: IconButton(
-                      color: AppColors.primaryColor,
-                      onPressed: () {
-                        ProductListViewModel.get(context)
-                            .addToWishList(productEntity.id ?? "");
+                  child: InkWell(
+                      onTap: () {
+                        ProductListViewModel.get(context).addToWishList(widget.productEntity.id ?? "");
+                        setState(() {
+                          isWishListSelected = !isWishListSelected;
+                        });
                       },
-                      icon: isWishListed == true
-                          ? const Icon(Icons.favorite_rounded)
-                          : const Icon(Icons.favorite_border_rounded),
-                    ),
-                  ))
+                      child: Image.asset(isWishListSelected
+                          ? MyAssets.selectedFavIcon
+                          : MyAssets.unSelectedWishListIcon)))
             ],
           ),
           SizedBox(
             height: 10.h,
           ),
           Text(
-            productEntity.title ?? "",
+            widget.productEntity.title ?? "",
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -72,7 +75,7 @@ class GridViewCardItem extends StatelessWidget {
           Row(
             children: [
               Text(
-                "EGP ${productEntity.price}",
+                "EGP ${widget.productEntity.price}",
                 maxLines: 1,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontSize: 14.sp,
@@ -88,7 +91,7 @@ class GridViewCardItem extends StatelessWidget {
           Row(
             children: [
               Text(
-                "Review (${productEntity.ratingsAverage})",
+                "Review (${widget.productEntity.ratingsAverage})",
                 maxLines: 1,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       fontSize: 14.sp,
@@ -109,7 +112,7 @@ class GridViewCardItem extends StatelessWidget {
               InkWell(
                 onTap: () {
                   ProductListViewModel.get(context)
-                      .addToCart(productEntity.id ?? "");
+                      .addToCart(widget.productEntity.id ?? "");
                 },
                 splashColor: Colors.transparent,
                 child: Icon(

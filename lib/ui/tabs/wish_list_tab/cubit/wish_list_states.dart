@@ -22,3 +22,20 @@ class WishListSuccessStates extends WishListStates {
 
   WishListSuccessStates({required this.wishListResponseEntity});
 }
+class DeleteItemInWishListLoadingStates extends WishListStates {
+  String? loadingMessage;
+
+  DeleteItemInWishListLoadingStates({required this.loadingMessage});
+}
+
+class DeleteItemInWishListErrorStates extends WishListStates {
+  Failures errorMessage;
+
+  DeleteItemInWishListErrorStates({required this.errorMessage});
+}
+
+class DeleteItemInWishListSuccessStates extends WishListStates {
+  GetWishListResponseEntity wishListResponseEntity;
+
+  DeleteItemInWishListSuccessStates({required this.wishListResponseEntity});
+}
